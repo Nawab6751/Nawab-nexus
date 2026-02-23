@@ -3,77 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NAWAB-FORCE | MASTER COMMAND</title>
+    <title>NAWAB FORCE | COMMAND CENTER</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: #000; font-family: 'Courier New', monospace; overflow-x: hidden; }
-        .hacker-border { border: 1px solid #06b6d4; box-shadow: 0 0 10px rgba(6,182,212,0.3); }
-        .folder-card:hover { transform: translateY(-5px); border-color: #22d3ee; box-shadow: 0 0 20px rgba(34,211,238,0.5); }
+        body { background: #000; font-family: 'Courier New', monospace; color: #06b6d4; }
+        .card { background: rgba(15, 23, 42, 0.8); border: 1px solid #1e293b; transition: 0.3s; }
+        .card:hover { border-color: #06b6d4; box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); }
+        .loader { border-top-color: #06b6d4; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="text-cyan-400 p-4 md:p-10">
+<body class="p-5 md:p-10">
 
-    <div class="max-w-6xl mx-auto flex justify-between items-center border-b border-cyan-900 pb-6 mb-10">
-        <div>
-            <h1 class="text-3xl font-black tracking-tighter italic text-white">NAWAB FORCE <span class="text-cyan-500">OFFICIAL</span></h1>
-            <p class="text-xs mt-1 text-cyan-700 font-bold uppercase tracking-widest text-glow">System: Online | User: Nawab Zada</p>
+    <div class="max-w-6xl mx-auto flex justify-between items-center border-b border-cyan-900 pb-5 mb-10">
+        <h1 class="text-2xl font-black italic text-white uppercase tracking-tighter">Nawab Force <span class="text-cyan-500 underline">Nexus</span></h1>
+        <div id="status" class="text-[10px] bg-cyan-950 px-2 py-1 rounded text-cyan-400">STATUS: SYSTEM_READY</div>
+    </div>
+
+    <div id="mainView" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div onclick="openFolder('Telegram Scrapers')" class="card p-6 rounded-lg cursor-pointer group">
+            <span class="text-4xl block mb-4">📡</span>
+            <h2 class="text-xl font-bold text-white uppercase group-hover:text-cyan-400">Telegram Tools</h2>
+            <p class="text-xs text-gray-500 mt-2">Access automated data mining scripts.</p>
         </div>
-        <div class="text-right">
-            <p class="text-[10px] text-gray-500">SESSION_ID: NZ-2026-BETA</p>
-            <button onclick="location.reload()" class="text-red-500 text-xs hover:underline mt-1 font-bold">TERMINATE SESSION</button>
+        <div onclick="openFolder('Daily Lectures')" class="card p-6 rounded-lg cursor-pointer group">
+            <span class="text-4xl block mb-4">📚</span>
+            <h2 class="text-xl font-bold text-white uppercase group-hover:text-cyan-400">Daily Lectures</h2>
+            <p class="text-xs text-gray-500 mt-2">Exclusive video tutorials & PDF notes.</p>
+        </div>
+        <div onclick="openFolder('Cyber Defense')" class="card p-6 rounded-lg cursor-pointer group">
+            <span class="text-4xl block mb-4">🛡️</span>
+            <h2 class="text-xl font-bold text-white uppercase group-hover:text-cyan-400">Cyber Defense</h2>
+            <p class="text-xs text-gray-500 mt-2">Shields, Phishing detectors & firewalls.</p>
         </div>
     </div>
 
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div id="folderView" class="max-w-4xl mx-auto hidden">
+        <button onclick="goBack()" class="mb-6 text-xs text-gray-500 hover:text-white">← BACK TO TERMINAL</button>
+        <h2 id="folderTitle" class="text-3xl font-bold text-white mb-2 uppercase italic">Folder Name</h2>
+        <div class="h-1 w-20 bg-cyan-500 mb-8"></div>
         
-        <div class="folder-card bg-slate-900/50 p-6 rounded-lg transition-all cursor-pointer border border-cyan-900">
-            <div class="flex items-center mb-4">
-                <span class="text-3xl mr-3">📡</span>
-                <h2 class="text-xl font-bold text-white uppercase">Telegram Scrapers</h2>
-            </div>
-            <p class="text-sm text-gray-400 mb-6">Tools for data mining, group scraping, and automation scripts.</p>
-            <ul class="text-xs space-y-2 mb-6">
-                <li class="flex items-center">➡️ <span class="ml-2">Member Scraper V1.0</span></li>
-                <li class="flex items-center">➡️ <span class="ml-2">Group Message Logger</span></li>
-            </ul>
-            <button class="w-full py-2 bg-cyan-900/30 border border-cyan-500 text-cyan-400 font-bold hover:bg-cyan-500 hover:text-black transition-all">OPEN DIRECTORY</button>
+        <div id="contentList" class="space-y-4">
+            <div class="animate-pulse text-gray-600 text-sm italic italic">Loading Secure Data...</div>
         </div>
-
-        <div class="folder-card bg-slate-900/50 p-6 rounded-lg transition-all cursor-pointer border border-cyan-900">
-            <div class="flex items-center mb-4">
-                <span class="text-3xl mr-3">📚</span>
-                <h2 class="text-xl font-bold text-white uppercase">Daily Lectures</h2>
-            </div>
-            <p class="text-sm text-gray-400 mb-6">Master class videos and PDF notes for Nawab's private team.</p>
-            <ul class="text-xs space-y-2 mb-6">
-                <li class="flex items-center text-green-500">➡️ <span class="ml-2 text-gray-400">Intro to Ethical Hacking</span></li>
-                <li class="flex items-center">➡️ <span class="ml-2">Python for Automation</span></li>
-            </ul>
-            <button class="w-full py-2 bg-cyan-900/30 border border-cyan-500 text-cyan-400 font-bold hover:bg-cyan-500 hover:text-black transition-all">ENTER ACADEMY</button>
-        </div>
-
-        <div class="folder-card bg-slate-900/50 p-6 rounded-lg transition-all cursor-pointer border border-cyan-900">
-            <div class="flex items-center mb-4">
-                <span class="text-3xl mr-3">🛡️</span>
-                <h2 class="text-xl font-bold text-white uppercase">Cyber Defense</h2>
-            </div>
-            <p class="text-sm text-gray-400 mb-6">Protection scripts, phishing detectors, and firewall settings.</p>
-            <ul class="text-xs space-y-2 mb-6">
-                <li class="flex items-center">➡️ <span class="ml-2">Anti-Phishing Shield</span></li>
-                <li class="flex items-center">➡️ <span class="ml-2">Login Vault Secure</span></li>
-            </ul>
-            <button class="w-full py-2 bg-cyan-900/30 border border-cyan-500 text-cyan-400 font-bold hover:bg-cyan-500 hover:text-black transition-all">ACCESS SHIELD</button>
-        </div>
-
     </div>
 
-    <div class="max-w-6xl mx-auto mt-20 p-4 border-t border-cyan-900 flex flex-wrap justify-between text-[10px] text-cyan-800 font-bold">
-        <span>ENCRYPTION: AES-256 BIT</span>
-        <span>LOCATION: PRIVATE_SERVER_PK</span>
-        <span>STATUS: ALL_SYSTEMS_OPERATIONAL</span>
-        <span>POWERED BY: NAWAB ZADA'S BRAIN</span>
-    </div>
+    <script>
+        // Jani, ab yahan dhyan dena.
+        // Ye "Database" hai. Agli baar jab tumhe koi naya lecture ya tool dalna ho, 
+        // toh bas is "data" wale hissay mein ek line add kar dena, 
+        // poori website khud hi update ho jaye gi!
+
+        const data = {
+            "Telegram Scrapers": [
+                { title: "Member Scraper Pro", link: "#", type: "Tool" },
+                { title: "Group Message Logger", link: "#", type: "Script" }
+            ],
+            "Daily Lectures": [
+                { title: "Lecture 01: HTML Basics", link: "https://youtube.com/link1", type: "Video" },
+                { title: "Lecture 02: CSS for Hackers", link: "https://youtube.com/link2", type: "Video" }
+            ],
+            "Cyber Defense": [
+                { title: "Phishing Detector", link: "#", type: "Security" },
+                { title: "IP Logger Shield", link: "#", type: "VPN" }
+            ]
+        };
+
+        function openFolder(folderName) {
+            document.getElementById('mainView').classList.add('hidden');
+            document.getElementById('folderView').classList.remove('hidden');
+            document.getElementById('folderTitle').innerText = folderName;
+            document.getElementById('status').innerText = "STATUS: BROWSING_" + folderName.toUpperCase();
+
+            const list = document.getElementById('contentList');
+            list.innerHTML = ""; // Purana data saaf karo
+
+            data[folderName].forEach(item => {
+                const div = document.createElement('div');
+                div.className = "bg-slate-900 border-l-4 border-cyan-600 p-4 flex justify-between items-center hover:bg-slate-800 transition-all";
+                div.innerHTML = `
+                    <div>
+                        <h3 class="text-white font-bold">${item.title}</h3>
+                        <span class="text-[10px] text-cyan-800 uppercase">${item.type}</span>
+                    </div>
+                    <a href="${item.link}" target="_blank" class="text-xs bg-cyan-600 text-black px-3 py-1 font-bold rounded">ACCESS</a>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function goBack() {
+            document.getElementById('mainView').classList.remove('hidden');
+            document.getElementById('folderView').classList.add('hidden');
+            document.getElementById('status').innerText = "STATUS: SYSTEM_READY";
+        }
+    </script>
 
 </body>
-                                                                   </html>
+                </html>
                 
